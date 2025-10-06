@@ -3,18 +3,9 @@ from nltk.corpus import stopwords
 import nltk
 from nltk.stem.porter import PorterStemmer
 
-# --- Download NLTK data for deployment ---
-# This checks if the data is present and downloads it if not.
-try:
-    nltk.data.find('tokenizers/punkt')
-except nltk.downloader.DownloadError:
-    nltk.download('punkt', quiet=True)
-
-try:
-    nltk.data.find('corpora/stopwords')
-except nltk.downloader.DownloadError:
-    nltk.download('stopwords', quiet=True)
-# -----------------------------------------
+# Point NLTK to the local 'nltk_data' folder in your project
+# This is the corrected line that fixes the deployment issue.
+nltk.data.path.append('./nltk_data')
 
 ps = PorterStemmer()
 
@@ -50,4 +41,3 @@ def transform_text(text):
         y.append(ps.stem(i))
 
     return " ".join(y)
-
